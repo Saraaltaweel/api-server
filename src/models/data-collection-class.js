@@ -5,7 +5,7 @@ class Model{
         this.model=model;
     }
 
-    get(id){
+    get(_id){
         if(_id){
             return this.model.findById(_id);
         }
@@ -25,12 +25,12 @@ class Model{
     
 
     }
-    update(id,obj){
+    update(_id,obj){
         return this.model.findByIdAndUpdate(_id,obj,{new:true});
         
     }
        
-    delete(id){
+    delete(_id){
         return this.model.findByIdAndDelete(_id);
 
     }

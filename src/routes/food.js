@@ -2,48 +2,48 @@
 
 const express = require('express');
 const router = express.Router();
-// class
-const logger = require('../middleware/logger.js');
-router.use(logger);
-const Food = require('../models/food');
-//new obj from the class
-const newFood = new Food(); 
+const collection = require('../models/data-collection-class')
+const food = require('../models/food');
+const newFood = new collection(food);
 
-router.get('/food',getfood);
-router.get('/food/:id',getOnefood);
-router.post('/food',createfood);
-router.put('/food/:id',updatefood);
-router.delete('/food/:id',deletefood);
+router.get('/',getFood);
+router.get('/:id',getOneFood);
+router.post('/',createFood);
+router.put('/:id',updateFood);
+router.delete('/:id',deleteFood);
 
-function getfood(req,res){
+function getFood(req,res){
     const item= newFood.get();
+    res.json(item);
     res.status(200).json(item);
 }
 
-function getOnefood(req,res){
+function getOneFood(req,res){
     const id=parseInt(req.params.id);
     const oneItem=newFood.get(id);
+    res.json(oneItem);
     res.status(200).json(oneItem);
 }
 
-function createfood(req,res){
+function createFood(req,res){
     const item=req.body;
     const newItem=newFood.create(item);
     res.status(201).json(newItem);
 
 }
 
-function updatefood(req,res){
+function updateFood(req,res){
     let id=parseInt(req.params.id);
     const item=req.body;
     const updateNewFood=newFood.update(id,item);
     res.status(200).json(updateNewFood);
 }
 
-function deletefood(req,res){
+function deleteFood(req,res){
     const id=(parseInt.params.id);
     const deleted=newFood.delete(id);
-    const message=deleted?'food is deleted':'food not found';
+    res.json(deleted);
+    const message=deleted?'Food is deleted':'Food not found';
     const statuseCode=deleted?202:204;
     res.status(statuseCode).json({
         message:message,
