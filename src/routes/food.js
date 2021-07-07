@@ -12,42 +12,54 @@ router.post('/',createFood);
 router.put('/:id',updateFood);
 router.delete('/:id',deleteFood);
 
-function getFood(req,res){
-    const item= newFood.get();
-    res.json(item);
-    res.status(200).json(item);
+async function getFood(req, res, next) {
+    try {
+
+        const obj = await newFood.read();
+        console.log('get', obj);
+        res.json({ obj });
+        console.log(res.json({ obj }));
+    } catch (err) {
+        next(err);
+    }
 }
 
-function getOneFood(req,res){
-    const id=parseInt(req.params.id);
-    const oneItem=newFood.get(id);
-    res.json(oneItem);
-    res.status(200).json(oneItem);
+async function getOneFood(req, res, next) {
+    try {
+        const obj = await newFood.read(req.params.id);
+        res.json(obj);
+    } catch (err) {
+        next(err);
+    }
 }
 
-function createFood(req,res){
-    const item=req.body;
-    const newItem=newFood.create(item);
-    res.status(201).json(newItem);
-
+async function createFood(req, res, next) {
+    try {
+        const clothesData = req.body;
+        const obj = await newFood.create(clothesData);
+        res.status(201).json(obj);
+    } catch (err) {
+        next(err);
+    }
 }
 
-function updateFood(req,res){
-    let id=parseInt(req.params.id);
-    const item=req.body;
-    const updateNewFood=newFood.update(id,item);
-    res.status(200).json(updateNewFood);
+
+async function updateFood(req, res, next) {
+    try {
+        const clothesData = req.body;
+        const obj = await newFood.update(req.params.id, clothesData);
+        res.status(201).json(obj);
+    } catch (err) {
+        next(err);
+    }
 }
 
-function deleteFood(req,res){
-    const id=(parseInt.params.id);
-    const deleted=newFood.delete(id);
-    res.json(deleted);
-    const message=deleted?'Food is deleted':'Food not found';
-    const statuseCode=deleted?202:204;
-    res.status(statuseCode).json({
-        message:message,
-        deleted:deleted,
-    });
+async function deleteFood(req, res, next) {
+    try {
+        const obj = await newFood.delete(req.params.id);
+    } catch (err) {
+        next(err);
+    }
+
 }
 module.exports=router;

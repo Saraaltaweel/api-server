@@ -7,15 +7,15 @@ class Model{
 
     get(_id){
         if(_id){
-            return this.model.findById(_id);
+            return this.model.find(_id);
         }
         else{
             return this.model.find({});
         }
     }
-    getBy(obj){
-        return this.model.find(obj);
-    }
+    // getBy(obj){
+    //     return this.model.find(obj);
+    // }
 
     create(obj){
         let newRecord=new this.model(obj);
