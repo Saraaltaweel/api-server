@@ -1,7 +1,6 @@
 # api-server
 [Heroku url](https://sara-api-server.herokuapp.com/)
-[Actions](https://github.com/Saraaltaweel/api-server/actions)
-[pull request](https://github.com/Saraaltaweel/api-server/pull/2)
+[pull request](https://github.com/Saraaltaweel/api-server/pull/3/)
 
 ![](api_server.PNG)
 
