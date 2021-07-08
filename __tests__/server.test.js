@@ -34,38 +34,17 @@ describe('Testing server', () => {
    
     id = response.body._id;
   });
-   
-  // it('Update a record', async () => {
-  //   console.log('updateId',id)
-  //   const response = await request.put(`/food/${id}`).send({
-  //     name: 'kabsah',
-    
-  //   });
-
-  //   expect(response.status).toEqual(200);
-  //   expect(response.body.name).toEqual('kabsah');
-   
-  // });
   
-  // it('Read a record', async () => {
-  //   const response = await request.get(`/food/${id}`);
-  //   expect(response.status).toEqual(200);
-  //   expect(response.body.name).toEqual('kabsah');
-   
-  // });
-   
-  // it('Read all record', async () => {
-  //   const response = await request.get('/food/');
-  //   expect(response.status).toEqual(200);
-  //   expect(response.body[0].name).toEqual('kabsah');
-   
-  // });
   
   it('Delete a record', async () => {
+    const response = await request.post('/api/v1/food').send({
+      name: 'maqluba',
+    });
+    id = response.body._id;
     console.log('idd',id)
-    const response = await request.delete(`/food/${id}`);
+    const response2 = await request.delete(`/food/${id}`);
    
-    expect(response.status).toEqual(202);
+    expect(response2.status).toEqual(202);
     
   });
 });

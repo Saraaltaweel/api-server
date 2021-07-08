@@ -14,8 +14,10 @@ router.delete('/:id',deleteFood);
 
 async function getFood(req, res, next) {
     try {
+        console.log(newFood)
+        console.log(newFood.model);
 
-        const obj = await newFood.read();
+        const obj = await newFood.get();
         console.log('get', obj);
         res.json({ obj });
         console.log(res.json({ obj }));
