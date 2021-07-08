@@ -12,42 +12,55 @@ router.post('/',createClothes);
 router.put('/:id',updateClothes);
 router.delete('/:id',deleteClothes);
 
-function getClothes(req,res){
-    const item= newFood.get();
-    res.json(item);
-    res.status(200).json(item);
+
+async function getClothes(req, res, next) {
+    try {
+
+        const obj = await newClothes.read();
+        console.log('get', obj);
+        res.json({ obj });
+        console.log(res.json({ obj }));
+    } catch (err) {
+        next(err);
+    }
 }
 
-function getOneClothes(req,res){
-    const id=parseInt(req.params.id);
-    const oneItem=newClothes.get(id);
-    res.json(oneItem);
-    res.status(200).json(oneItem);
+async function getOneClothes(req, res, next) {
+    try {
+        const obj = await newClothes.read(req.params.id);
+        res.json(obj);
+    } catch (err) {
+        next(err);
+    }
 }
 
-function createClothes(req,res){
-    const item=req.body;
-    const newItem=newClothes.create(item);
-    res.status(201).json(newItem);
-
+async function createClothes(req, res, next) {
+    try {
+        const clothesData = req.body;
+        const obj = await newClothes.creat(clothesData);
+        res.status(201).json(obj);
+    } catch (err) {
+        next(err);
+    }
 }
 
-function updateClothes(req,res){
-    let id=parseInt(req.params.id);
-    const item=req.body;
-    const updateNewClothes=newClothes.update(id,item);
-    res.status(200).json(updateNewClothes);
+
+async function updateClothes(req, res, next) {
+    try {
+        const clothesData = req.body;
+        const obj = await newClothes.update(req.params.id, clothesData);
+        res.status(201).json(obj);
+    } catch (err) {
+        next(err);
+    }
 }
 
-function deleteClothes(req,res){
-    const id=(parseInt.params.id);
-    const deleted=newClothes.delete(id);
-    res.json(deleted);
-    const message=deleted?'clothes is deleted':'clothes not found';
-    const statuseCode=deleted?202:204;
-    res.status(statuseCode).json({
-        message:message,
-        deleted:deleted,
-    });
+async function deleteClothes(req, res, next) {
+    try {
+        const obj = await newClothes.delete(req.params.id);
+    } catch (err) {
+        next(err);
+    }
+
 }
 module.exports=router;
